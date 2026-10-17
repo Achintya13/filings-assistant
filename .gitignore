@@ -1,0 +1,8 @@
+.env
+__pycache__/
+*.pyc
+data/chroma/
+data/documents/
+data/vectors.npy
+data/vectors_partial.json
+data/chunks.json
