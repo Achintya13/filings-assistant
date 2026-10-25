@@ -1,4 +1,4 @@
-"""Find the chunks most relevant to a question."""
+"""Find the chunks most relevant to a question, favouring a given period."""
 
 import json
 import os
@@ -11,6 +11,13 @@ from dotenv import load_dotenv
 load_dotenv()
 
 MODEL = "voyage-3.5"
+
+# Added to a chunk's score when its document is exactly the period asked
+# about; half of it when the document merely covers that period. Scores
+# sit around 0.55, so 0.10 is a decisive nudge without being absolute.
+EXACT_BOOST = 0.10
+COVERS_BOOST = 0.05
+EXCLUDED = -1.0
 
 client = voyageai.Client(api_key=os.environ["VOYAGE_API_KEY"])
 
@@ -28,10 +35,47 @@ def embed_query(question: str) -> np.ndarray:
     return vector / np.linalg.norm(vector)
 
 
-def search(question: str, top_k: int = 5) -> list[dict]:
+def adjust_scores(
+    scores: np.ndarray, year: int | None, period: str | None
+) -> np.ndarray:
+    """Exclude the wrong year outright; nudge the right period upward.
+
+    The year is a hard filter because a 2026 document cannot answer a
+    question about 2025. The period is only a boost: a question about Q2
+    has no Q2 document to find, so the half-year report must stay
+    reachable, just ranked below an exact match when one exists.
+    """
+    adjusted = scores.copy()
+
+    for i, chunk in enumerate(chunks):
+        if year is not None and chunk.get("year") != year:
+            adjusted[i] = EXCLUDED
+            continue
+
+        if period is None:
+            continue
+
+        if chunk.get("period") == period:
+            adjusted[i] += EXACT_BOOST
+        elif period in chunk.get("covers", []):
+            adjusted[i] += COVERS_BOOST
+
+    return adjusted
+
+
+def search(
+    question: str,
+    top_k: int = 5,
+    year: int | None = None,
+    period: str | None = None,
+) -> list[dict]:
     """Return the top_k chunks most similar to the question."""
     query_vector = embed_query(question)
-    scores = vectors @ query_vector
+    raw = vectors @ query_vector
+    scores = adjust_scores(raw, year, period)
+
+    if np.max(scores) == EXCLUDED:
+        raise ValueError(f"No chunks match year={year}")
 
     best = np.argsort(scores)[::-1][:top_k]
 
@@ -44,23 +88,25 @@ def search(question: str, top_k: int = 5) -> list[dict]:
                 "page": chunk["page"],
                 "text": chunk["text"],
                 "score": float(scores[index]),
+                "raw_score": float(raw[index]),
             }
         )
 
     return results
 
 
-QUESTIONS = [
-    "What drove the increase in the impairment charge in Q1 2025?",
-    "What were Lloyds' Q3 2026 results?",
-]
-
-
 if __name__ == "__main__":
-    for question in QUESTIONS:
-        print("=" * 70)
-        print(f"Q: {question}\n")
+    question = "What drove the increase in the impairment charge in Q1 2025?"
 
-        for result in search(question):
-            print(f"[{result['score']:.3f}] {result['source']} p{result['page']}")
-            print(f"{result['text'][:250]}\n")
+    for label, filters in [
+        ("no filter", {}),
+        ("year=2025, period=Q1", {"year": 2025, "period": "Q1"}),
+    ]:
+        print("=" * 70)
+        print(f"{label}\n")
+
+        for result in search(question, **filters):
+            boost = result["score"] - result["raw_score"]
+            mark = f" (+{boost:.2f})" if boost > 0 else ""
+            print(f"[{result['score']:.3f}{mark}] {result['source']} p{result['page']}")
+            print(f"{result['text'][:180]}\n")

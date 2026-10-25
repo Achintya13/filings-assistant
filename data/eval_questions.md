@@ -53,3 +53,9 @@
 **Expected:** Not in the documents. The latest report is the 2026 half-year results; the system should say so rather than give H1 2026 or Q3 2025 figures.
 **Source:** none
 **Type:** unanswerable (tests hallucination)
+
+## Q10
+**Question:** Which quarter was the most profitable?
+**Expected:** Q1 2026, underlying profit £2,005m. The corpus gives standalone quarterly underlying profit for Q1 2025 (£1,532m), Q3 2025, Q4 2025 and Q1 2026; Q2 and Q3 2025 are not reported standalone. The answer should compare quarters within the corpus and not present 2024 comparatives as findings.
+**Source:** 2026-lbg-q1-ims.pdf p7; 2025-lbg-fy-results.pdf quarterly table
+**Type:** aggregation across periods

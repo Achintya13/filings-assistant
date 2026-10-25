@@ -30,6 +30,7 @@ QUESTIONS = [
     ),
     ("Q8", "How did the 2026 net interest income guidance change through the year?"),
     ("Q9", "What were Lloyds' Q3 2026 results?"),
+    ("Q10", "which quater was the most profitable?"),
 ]
 
 
