@@ -2,13 +2,13 @@
 
 ## Q1
 **Question:** What was the CET1 ratio at the end of 2025?
-**Expected:** 14.0% (down from 14.2% at end-2024). Pro forma CET1 ratio of 13.2% after the dividend and £1.75bn buyback.
-**Source:** 2025-lbg-fy-results.pdf, p5 (pro forma also on p4)
+**Expected:** 14.0% at 31 December 2025.
+**Source:** 2025-lbg-fy-results.pdf, p5
 **Type:** single fact, stated in prose
 
 ## Q2
 **Question:** How did underlying net interest income change year on year in 2025?
-**Expected:** Up 6%, to £13,635m (c.£13.6bn) from £12,845m. Banking net interest margin 3.06%, up 11bp.
+**Expected:** Up 6%, to £13,635m from £12,845m.
 **Source:** 2025-lbg-fy-results.pdf, p3 and p5
 **Type:** single fact, stated in prose
 

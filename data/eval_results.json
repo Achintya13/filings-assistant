@@ -1,0 +1,261 @@
+{
+  "date": "2026-11-14",
+  "rows": [
+    {
+      "id": "Q1",
+      "type": "single fact, stated in prose",
+      "question": "What was the CET1 ratio at the end of 2025?",
+      "answer": "The CET1 ratio at 31 December 2025 was **14.0%** [2025-lbg-fy-results.pdf p5].",
+      "filters": {
+        "year": 2025,
+        "period": "FY"
+      },
+      "sources": [
+        "2025-lbg-fy-results.pdf p5",
+        "2025-lbg-fy-results.pdf p34",
+        "2025-lbg-fy-results.pdf p5",
+        "2025-lbg-fy-results.pdf p19",
+        "2025-lbg-fy-results.pdf p18"
+      ],
+      "retrieval_hit": true,
+      "missing": [],
+      "invented_citations": [],
+      "grade": "pass",
+      "reason": "The system's answer exactly matches the expected figure of 14.0% at 31 December 2025.",
+      "input_tokens": 1695,
+      "output_tokens": 42
+    },
+    {
+      "id": "Q2",
+      "type": "single fact, stated in prose",
+      "question": "How did underlying net interest income change year on year in 2025?",
+      "answer": "Based on the Group-level income statement, **underlying net interest income increased by 6% year-on-year**, rising from **\u00a312,845 million in 2024 to \u00a313,635 million in 2025** [2025-lbg-fy-results.pdf p13].\n\nAt the divisional level, the picture was mixed:\n\n- **Retail**: +8%, from \u00a38,930m to \u00a39,637m [2025-lbg-fy-results.pdf p22]\n- **Commercial Banking**: +7%, from \u00a33,434m to \u00a33,670m [2025-lbg-fy-results.pdf p24]\n- **Equity Investments & Central Items**: -22%, from \u00a3617m to \u00a3479m [2025-lbg-fy-results.pdf p30]",
+      "filters": {
+        "year": 2025,
+        "period": "FY"
+      },
+      "sources": [
+        "2025-lbg-fy-results.pdf p30",
+        "2025-lbg-fy-results.pdf p30",
+        "2025-lbg-fy-results.pdf p13",
+        "2025-lbg-fy-results.pdf p22",
+        "2025-lbg-fy-results.pdf p24"
+      ],
+      "retrieval_hit": false,
+      "missing": [
+        "2025-lbg-fy-results.pdf (wanted p3, p5, got p13, p22, p24, p30)"
+      ],
+      "invented_citations": [],
+      "grade": "pass",
+      "reason": "The system's answer includes all key figures from the expected answer (6% increase, \u00a313,635m from \u00a312,845m) plus additional correct divisional detail.",
+      "input_tokens": 1588,
+      "output_tokens": 198
+    },
+    {
+      "id": "Q3",
+      "type": "single fact, stated in prose",
+      "question": "What is the total motor finance provision?",
+      "answer": "Based on the excerpts, the total motor finance provision is **\u00a31,950 million**, which represents the Group's best estimate of the potential impact of the motor finance issue. This figure is confirmed across multiple documents [2025-lbg-fy-results.pdf p61], [2026-lbg-hy-results.pdf p90].\n\nThis provision was built up through charges including an **\u00a3800 million** charge taken in Q3 2025, bringing the cumulative total to \u00a31,950 million [2025-lbg-q3-ims.pdf p8].",
+      "filters": {
+        "year": null,
+        "period": null
+      },
+      "sources": [
+        "2025-lbg-fy-results.pdf p14",
+        "2025-lbg-q3-ims.pdf p8",
+        "2026-lbg-hy-results.pdf p90",
+        "2025-lbg-fy-results.pdf p61",
+        "2026-lbg-q1-ims.pdf p11"
+      ],
+      "retrieval_hit": false,
+      "missing": [
+        "2026-lbg-hy-results.pdf (wanted p89, got p90)"
+      ],
+      "invented_citations": [],
+      "grade": "pass",
+      "reason": "The system correctly identifies the total provision as \u00a31,950m, the \u00a3800m Q3 2025 charge, and notes it remained unchanged at the half-year 2026 results.",
+      "input_tokens": 1113,
+      "output_tokens": 136
+    },
+    {
+      "id": "Q4",
+      "type": "requires reasoning across a passage",
+      "question": "What drove the increase in the impairment charge in Q1 2025?",
+      "answer": "Based on the excerpts, the increase in the underlying impairment charge to **\u00a3309 million** in Q1 2025 (up from \u00a357 million in Q1 2024) was driven by two main factors:\n\n1. **Underlying portfolio charges (excluding MES):** These rose to \u00a3274 million in Q1 2025 from \u00a3249 million in Q1 2024, reflecting deterioration across Retail and Commercial Banking segments [2025-lbg-q1-ims.pdf p10].\n\n2. **Updated economic outlook (MES):** This resulted in a **\u00a335 million net charge** in Q1 2025, compared to a **\u00a3192 million credit** in Q1 2024. The swing was largely due to a **\u00a3100 million central adjustment** added to address downside risks related to the potential impact of **US tariff policies announced at the start of April 2025**, which were becoming apparent around the balance sheet date [2025-lbg-q1-ims.pdf p8].\n\nIn contrast, Q1 2024 had benefitted significantly from a large MES credit of \u00a3192 million, making the year-on-year comparison particularly stark [2025-lbg-q1-ims.pdf p10].",
+      "filters": {
+        "year": 2025,
+        "period": "Q1"
+      },
+      "sources": [
+        "2025-lbg-q1-ims.pdf p2",
+        "2025-lbg-q1-ims.pdf p8",
+        "2025-lbg-q1-ims.pdf p10",
+        "2025-lbg-fy-results.pdf p11",
+        "2025-lbg-fy-results.pdf p23"
+      ],
+      "retrieval_hit": true,
+      "missing": [],
+      "invented_citations": [],
+      "grade": "partial",
+      "reason": "The system correctly identifies the MES swing and the \u00a3100m tariff adjustment, but misses the key reason for the higher pre-MES charge: a one-off Commercial Banking model release in Q1 2024 that did not recur. Instead it vaguely says 'deterioration across Retail and Commercial Banking segments,' which is not what the source states.",
+      "input_tokens": 1259,
+      "output_tokens": 292
+    },
+    {
+      "id": "Q5",
+      "type": "requires reasoning across a passage",
+      "question": "What interim dividend did Lloyds declare for H1 2026, and what other capital return came with it?",
+      "answer": "Based on the excerpts, Lloyds Banking Group declared an **interim ordinary dividend of 1.58 pence per share** (equivalent to **\u00a3918 million**) for H1 2026, representing a **30% increase** year-on-year. [2026-lbg-hy-results.pdf p4]\n\nAlongside this dividend, the Board announced its intention to implement a **further ordinary share buyback programme of up to \u00a31.0 billion**, in addition to the \u00a31.75 billion programme already announced at the full year 2025 results. [2026-lbg-hy-results.pdf p4] This reflected the Group's steps to derisk the business, its strong capital position, and confidence in its future earnings trajectory. Notably, the Group also confirmed it is now reviewing excess capital distributions **every half-year**, rather than annually. [2026-lbg-hy-results.pdf p9]",
+      "filters": {
+        "year": 2026,
+        "period": "HY"
+      },
+      "sources": [
+        "2026-lbg-hy-results.pdf p15",
+        "2026-lbg-hy-results.pdf p9",
+        "2026-lbg-hy-results.pdf p9",
+        "2026-lbg-hy-results.pdf p102",
+        "2026-lbg-hy-results.pdf p4"
+      ],
+      "retrieval_hit": true,
+      "missing": [],
+      "invented_citations": [],
+      "grade": "pass",
+      "reason": "All key figures match: 1.58p per share, \u00a3918m, 30% increase, \u00a31.0bn buyback, and \u00a31.75bn FY2025 buyback context.",
+      "input_tokens": 1167,
+      "output_tokens": 216
+    },
+    {
+      "id": "Q6",
+      "type": "table lookup",
+      "question": "In which quarter of 2025 was return on tangible equity lowest, and why?",
+      "answer": "Based on the excerpts, the quarterly return on tangible equity (RoTE) figures for 2025 are:\n\n- **Q1 2025**: 12.6% [2025-lbg-q1-ims.pdf p8]\n- **Q4 2025**: 15.7% [2025-lbg-fy-results.pdf p16]\n- **Full year 2025**: 12.9% (or 14.8% excluding the motor finance charge) [2025-lbg-fy-results.pdf p16]\n- **Nine months to Q3 2025**: 11.9% (or 14.6% excluding the motor finance charge) [2025-lbg-q3-ims.pdf p9]\n\n**Q3 2025 was the lowest-performing quarter**, as it dragged the nine-month RoTE down to 11.9% from 12.6% at Q1 \u2014 and the Group specifically cited a **one-off charge for motor finance commission arrangements** taken in Q3 as the reason. This is evidenced by the fact that excluding this charge, the nine-month RoTE was significantly higher at 14.6%, and the full-year RoTE similarly rises from 12.9% to 14.8% when the Q3 motor finance charge is stripped out [2025-lbg-q3-ims.pdf p9; 2025-lbg-fy-results.pdf p16].",
+      "filters": {
+        "year": 2025,
+        "period": null
+      },
+      "sources": [
+        "2025-lbg-fy-results.pdf p16",
+        "2025-lbg-q3-ims.pdf p9",
+        "2025-lbg-q3-ims.pdf p9",
+        "2025-lbg-q1-ims.pdf p8",
+        "2025-lbg-q1-ims.pdf p8"
+      ],
+      "retrieval_hit": false,
+      "missing": [
+        "2025-lbg-fy-results.pdf (wanted p6, got p16)",
+        "2025-lbg-q3-ims.pdf (wanted p2, got p9)"
+      ],
+      "invented_citations": [],
+      "grade": "partial",
+      "reason": "The system correctly identifies Q3 2025 as the lowest quarter and cites the motor finance charge as the reason, but it does not provide Q2 and Q3 standalone RoTE figures (15.5% and 7.5% respectively), nor does it state the \u00a3800m charge amount.",
+      "input_tokens": 1409,
+      "output_tokens": 350
+    },
+    {
+      "id": "Q7",
+      "type": "multi-document comparison",
+      "question": "How did the CET1 ratio move between the end of 2025 and the end of Q1 2026?",
+      "answer": "Based on the excerpts, the CET1 ratio moved as follows:\n\n- **31 December 2025 (reported):** 14.0%\n- **31 December 2025 (pro forma):** 13.2% *(reflecting the full impact of the 2025 share buyback announced in January 2026)*\n- **31 March 2026:** 13.4%\n\nOn a **reported basis**, the CET1 ratio fell by **0.6 percentage points** from 14.0% to 13.4% [2026-lbg-q1-ims.pdf p4].\n\nOn a **pro forma basis**, the CET1 ratio **increased by 0.2 percentage points** from 13.2% to 13.4% [2026-lbg-q1-ims.pdf p3]. This improvement of 41 basis points of capital generation during Q1 2026 was primarily driven by strong banking build, partially offset by risk-weighted asset increases of \u00a35.3 billion (RWAs rising to \u00a3240.8 billion), with an ordinary dividend accrual of 24 basis points also partially offsetting the gain [2026-lbg-q1-ims.pdf p9].",
+      "filters": {
+        "year": 2026,
+        "period": "Q1"
+      },
+      "sources": [
+        "2026-lbg-q1-ims.pdf p10",
+        "2026-lbg-q1-ims.pdf p9",
+        "2026-lbg-q1-ims.pdf p4",
+        "2026-lbg-q1-ims.pdf p3",
+        "2026-lbg-q1-ims.pdf p4"
+      ],
+      "retrieval_hit": false,
+      "missing": [
+        "2025-lbg-fy-results.pdf (not retrieved)",
+        "2026-lbg-q1-ims.pdf (wanted p2, got p3, p4, p9, p10)"
+      ],
+      "invented_citations": [],
+      "grade": "pass",
+      "reason": "The system correctly identifies the fall from 14.0% to 13.4% on a reported basis and the 41bp capital generation in Q1 2026, matching all key figures in the expected answer.",
+      "input_tokens": 1973,
+      "output_tokens": 294
+    },
+    {
+      "id": "Q8",
+      "type": "multi-document comparison",
+      "question": "How did the 2026 net interest income guidance change through the year?",
+      "answer": "Based on the excerpts provided, here is how the 2026 net interest income guidance evolved:\n\n1. **Q1 2026 (IMS):** The Group **upgraded** its guidance, stating it \"now expects underlying net interest income for 2026 to be greater than \u00a314.9 billion,\" driven by strength in activity and changes in interest rates [2026-lbg-q1-ims.pdf p7].\n\n2. **H1 2026 (Half-Year Results):** The Group **reiterated** the same guidance of \"underlying net interest income of greater than \u00a314.9 billion,\" with no further upgrade [2026-lbg-hy-results.pdf p4, p13, p16].\n\nIn summary, the guidance was raised to **>\u00a314.9 billion** at the Q1 stage and held at that level through the half-year results. The excerpts do not cover any later periods in 2026 (e.g., Q3 or full-year results), so it is not possible to say whether guidance changed further after H1.",
+      "filters": {
+        "year": null,
+        "period": null
+      },
+      "sources": [
+        "2026-lbg-hy-results.pdf p4",
+        "2026-lbg-hy-results.pdf p16",
+        "2026-lbg-q1-ims.pdf p7",
+        "2026-lbg-hy-results.pdf p13",
+        "2026-lbg-hy-results.pdf p16"
+      ],
+      "retrieval_hit": false,
+      "missing": [
+        "2025-lbg-fy-results.pdf (not retrieved)",
+        "2026-lbg-q1-ims.pdf (wanted p2, got p7)"
+      ],
+      "invented_citations": [],
+      "grade": "partial",
+      "reason": "The system correctly identifies Q1 and HY 2026 guidance but misses the initial FY 2025 results guidance of c.\u00a314.9bn that established the baseline before the Q1 upgrade.",
+      "input_tokens": 1345,
+      "output_tokens": 249
+    },
+    {
+      "id": "Q9",
+      "type": "unanswerable (tests hallucination)",
+      "question": "What were Lloyds' Q3 2026 results?",
+      "answer": "The documents provided do not contain this information. The excerpts cover Q1 2026 (interim management statement) and H1 2026 (half-year results) \u2014 there are no Q3 2026 results included in the provided materials.",
+      "filters": {
+        "year": 2026,
+        "period": "Q3"
+      },
+      "sources": [
+        "2026-lbg-hy-results.pdf p21",
+        "2026-lbg-q1-ims.pdf p14",
+        "2026-lbg-hy-results.pdf p20",
+        "2026-lbg-hy-results.pdf p50",
+        "2026-lbg-hy-results.pdf p23"
+      ],
+      "retrieval_hit": null,
+      "missing": [],
+      "invented_citations": [],
+      "grade": "pass",
+      "reason": "The system correctly states that Q3 2026 results are not in the documents and identifies what is available (H1 2026 results), matching the expected answer.",
+      "input_tokens": 1494,
+      "output_tokens": 57
+    },
+    {
+      "id": "Q10",
+      "type": "aggregation across periods",
+      "question": "Which quarter was the most profitable?",
+      "answer": "Based on the excerpts provided, I can identify the following profitability figures:\n\n**H1 2026 (six months ended):** Profit before tax of \u00a34,293 million [2026-lbg-hy-results.pdf p54]\n\n**Nine months to 30 September 2025:** Statutory profit before tax of \u00a34,678 million, with underlying profit of \u00a34,851 million [2025-lbg-q3-ims.pdf p7]\n\nHowever, the excerpts do **not provide a quarter-by-quarter breakdown** of profit before tax that would allow a direct comparison across individual quarters. The Q3 2025 IMS notes that underlying profit in Q3 2025 was \u00a31,290 million, down 36% versus Q2 2025 (implying Q2 2025 underlying profit of approximately \u00a32,015 million), but full statutory profit before tax figures for each individual quarter are not provided in the excerpts.\n\n**The documents provided do not contain sufficient quarter-by-quarter data to definitively identify which single quarter was the most profitable.**",
+      "filters": {
+        "year": null,
+        "period": null
+      },
+      "sources": [
+        "2025-lbg-q3-ims.pdf p7",
+        "2025-lbg-q3-ims.pdf p7",
+        "2025-lbg-q3-ims.pdf p15",
+        "2025-lbg-q1-ims.pdf p7",
+        "2026-lbg-hy-results.pdf p54"
+      ],
+      "retrieval_hit": false,
+      "missing": [
+        "2026-lbg-q1-ims.pdf (not retrieved)",
+        "2025-lbg-fy-results.pdf (not retrieved)"
+      ],
+      "invented_citations": [],
+      "grade": "fail",
+      "reason": "The system concluded the data was insufficient and did not identify Q1 2026 (underlying profit \u00a32,005m) as the most profitable quarter, instead refusing to give a definitive answer.",
+      "input_tokens": 1408,
+      "output_tokens": 253
+    }
+  ]
+}
