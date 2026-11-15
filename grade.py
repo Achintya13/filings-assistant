@@ -1,4 +1,9 @@
-"""Grade one answer against its expected answer, using a model as judge."""
+"""Mark one answer against the answer key, using a model as judge.
+
+The judge fills in a checklist: one line per key point in the expected
+answer, ticked if the system's answer states it. Plain code then turns the
+ticks into a grade, so the same checklist always gives the same grade.
+"""
 
 import json
 import os
@@ -9,47 +14,80 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# Sonnet, not Haiku: marking needs careful reading of two answers.
 MODEL = "claude-sonnet-4-6"
-
-VALID_GRADES = {"pass", "partial", "fail"}
 
 client = Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
 
-JUDGE_PROMPT = """You grade answers from a financial document question-answering system.
+JUDGE_PROMPT = """You check answers from a financial document question-answering system against an answer key.
 
-You are given a question, the expected answer written by a human from the source filings, and the answer the system produced. Decide how well the system's answer matches the expected one.
+You get a question, the expected answer written by a human from the filings, and the system's answer.
 
-Grade strictly:
-- "pass": every substantive figure and point in the expected answer appears in the system's answer. Extra correct detail is fine. Different wording is fine.
-- "partial": the main point is right but specific figures or reasoning from the expected answer are missing, or the right conclusion was reached without the evidence that should support it.
-- "fail": the answer is wrong, contradicts the expected answer, or invents figures.
+Step 1. Split the expected answer into its key points: each separate figure or fact it states. Usually one to five points.
+Step 2. For each key point, decide whether the system's answer states it. Different wording is fine. Figures must match.
+Step 3. Decide whether the system's answer contradicts the expected answer: a different figure for the same thing, or a figure for a different period presented as the one asked about.
 
-For a question whose expected answer is that the documents do not contain the information, "pass" means the system refused. Giving figures for a different period is "fail", not "partial" — a confident wrong figure is the worst outcome.
+If the expected answer says the documents do not contain the information, there is one key point: the system says so.
 
-Return only a JSON object, no other text:
-{"grade": "pass" | "partial" | "fail", "reason": "one short sentence"}"""
+Return only JSON, no other text:
+{"points": [{"point": "short description", "present": true}], "contradiction": false, "reason": "one short sentence"}"""
+
+
+def decide_grade(points: list[dict], contradiction: bool) -> str:
+    """Turn the checklist into a grade. No judgement here, just counting."""
+    if contradiction or not points:
+        return "fail"
+    present = sum(1 for point in points if point.get("present") is True)
+    if present == len(points):
+        return "pass"
+    if present == 0:
+        return "fail"
+    return "partial"
 
 
 def parse_response(text: str) -> dict:
-    """Pull the JSON out of the reply and check the grade is one we allow."""
+    """Read the judge's JSON and check it has the shape we asked for."""
     match = re.search(r"\{.*\}", text, re.DOTALL)
     if not match:
-        return {"grade": "fail", "reason": "judge returned no JSON"}
+        return {
+            "grade": "fail",
+            "score": "",
+            "points": [],
+            "reason": "judge returned no JSON",
+        }
 
     try:
         data = json.loads(match.group(0))
     except json.JSONDecodeError:
-        return {"grade": "fail", "reason": "judge returned malformed JSON"}
+        return {
+            "grade": "fail",
+            "score": "",
+            "points": [],
+            "reason": "judge returned malformed JSON",
+        }
 
-    grade = data.get("grade", "").lower()
-    if grade not in VALID_GRADES:
-        return {"grade": "fail", "reason": f"judge returned unknown grade: {grade}"}
+    points = data.get("points")
+    if not isinstance(points, list) or not all(isinstance(p, dict) for p in points):
+        return {
+            "grade": "fail",
+            "score": "",
+            "points": [],
+            "reason": "judge returned no checklist",
+        }
 
-    return {"grade": grade, "reason": data.get("reason", "")}
+    contradiction = data.get("contradiction") is True
+    present = sum(1 for point in points if point.get("present") is True)
+
+    return {
+        "grade": decide_grade(points, contradiction),
+        "score": f"{present}/{len(points)}",
+        "points": points,
+        "reason": data.get("reason", ""),
+    }
 
 
 def grade_answer(question: str, expected: str, actual: str) -> dict:
-    """Return {"grade": ..., "reason": ...} comparing actual against expected."""
+    """Return the grade, the checklist score and the judge's reason."""
     content = (
         f"Question:\n{question}\n\n"
         f"Expected answer:\n{expected}\n\n"
@@ -58,37 +96,9 @@ def grade_answer(question: str, expected: str, actual: str) -> dict:
 
     response = client.messages.create(
         model=MODEL,
-        max_tokens=200,
+        max_tokens=600,
         system=JUDGE_PROMPT,
         messages=[{"role": "user", "content": content}],
     )
 
     return parse_response(response.content[0].text)
-
-
-def check_retrieval(expected_docs: list[str], sources: list[dict]) -> dict:
-    """Did the documents the answer needs appear among the retrieved chunks?"""
-    if not expected_docs:
-        return {"hit": None, "found": [], "missing": []}
-
-    retrieved = {source["source"] for source in sources}
-    found = [doc for doc in expected_docs if doc in retrieved]
-    missing = [doc for doc in expected_docs if doc not in retrieved]
-
-    return {"hit": len(missing) == 0, "found": found, "missing": missing}
-
-
-if __name__ == "__main__":
-    result = grade_answer(
-        question="What was the CET1 ratio at the end of 2025?",
-        expected="14.0% at 31 December 2025.",
-        actual="The CET1 ratio at 31 December 2025 was 14.0%.",
-    )
-    print(result)
-
-    result = grade_answer(
-        question="What was the CET1 ratio at the end of 2025?",
-        expected="14.0% at 31 December 2025.",
-        actual="The CET1 ratio was 13.4%.",
-    )
-    print(result)

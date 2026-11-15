@@ -21,6 +21,7 @@ Rules:
 - Cite the source document and page for every figure, like [2025-lbg-fy-results.pdf p5].
 - Check the period carefully. If the question asks about a period the excerpts do not cover, say so plainly rather than giving figures for a different period.
 - If the excerpts do not answer the question, say "The documents provided do not contain this information."
+- Give a cause or reason only if the excerpts state it. If they don't, report the figures without explaining why they moved.
 - Be concise."""
 
 

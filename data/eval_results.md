@@ -1,21 +1,21 @@
 # Evaluation results
 
-Run 2026-11-14 - 6 pass, 3 partial, 1 fail of 10
+Run 2026-11-15 - 6 pass, 3 partial, 1 fail of 10
 
 | ID | Type | Grade | Pages | Citations | Cause | Note |
 | --- | --- | --- | --- | --- | --- | --- |
-| Q1 | single fact, stated in prose | pass (was partial) | found | ok | - | The system's answer exactly matches the expected figure of 14.0% at 31 December 2025. |
-| Q2 | single fact, stated in prose | pass | missed | ok | - | The system's answer includes all key figures from the expected answer (6% increase, £13,635m from £12,845m) plus additional correct divisional detail. |
-| Q3 | single fact, stated in prose | pass | missed | ok | - | The system correctly identifies the total provision as £1,950m, the £800m Q3 2025 charge, and notes it remained unchanged at the half-year 2026 results. |
-| Q4 | requires reasoning across a passage | partial (was pass) | found | ok | generation | The system correctly identifies the MES swing and the £100m tariff adjustment, but misses the key reason for the higher pre-MES charge: a one-off Commercial Banking model release in Q1 2024 that did not recur. Instead it vaguely says 'deterioration across Retail and Commercial Banking segments,' which is not what the source states. |
-| Q5 | requires reasoning across a passage | pass | found | ok | - | All key figures match: 1.58p per share, £918m, 30% increase, £1.0bn buyback, and £1.75bn FY2025 buyback context. |
-| Q6 | table lookup | partial | missed | ok | retrieval | The system correctly identifies Q3 2025 as the lowest quarter and cites the motor finance charge as the reason, but it does not provide Q2 and Q3 standalone RoTE figures (15.5% and 7.5% respectively), nor does it state the £800m charge amount. |
-| Q7 | multi-document comparison | pass | missed | ok | - | The system correctly identifies the fall from 14.0% to 13.4% on a reported basis and the 41bp capital generation in Q1 2026, matching all key figures in the expected answer. |
-| Q8 | multi-document comparison | partial | missed | ok | retrieval | The system correctly identifies Q1 and HY 2026 guidance but misses the initial FY 2025 results guidance of c.£14.9bn that established the baseline before the Q1 upgrade. |
-| Q9 | unanswerable (tests hallucination) | pass | n/a | ok | - | The system correctly states that Q3 2026 results are not in the documents and identifies what is available (H1 2026 results), matching the expected answer. |
-| Q10 | aggregation across periods | fail | missed | ok | retrieval | The system concluded the data was insufficient and did not identify Q1 2026 (underlying profit £2,005m) as the most profitable quarter, instead refusing to give a definitive answer. |
+| Q1 | single fact, stated in prose | pass | found | ok | - | The system's answer matches the expected answer exactly, providing 14.0% at 31 December 2025. |
+| Q2 | single fact, stated in prose | pass | missed | ok | - | The system's answer matches all key points of the expected answer exactly. |
+| Q3 | single fact, stated in prose | pass | missed | ok | - | The system's answer matches all key points of the expected answer. |
+| Q4 | requires reasoning across a passage | partial | found | ok | generation | The system mentions higher ex-MES charge but attributes it to increases across Retail and Commercial Banking rather than specifically to a one-off Commercial Banking model release in Q1 2024 not recurring. |
+| Q5 | requires reasoning across a passage | pass | found | ok | - | The system's answer matches all key points of the expected answer exactly. |
+| Q6 | table lookup | partial | missed | ok | retrieval | The system correctly identifies Q3 as lowest and mentions the motor finance charge as the reason, but does not provide the specific Q3 standalone RoTE of 7.5%, Q2 figure of 15.5%, or the specific £800m charge amount. |
+| Q7 | multi-document comparison | pass | missed | ok | - | The system's answer confirms both key points: the fall from 14.0% to 13.4% and capital generation of 41bp. |
+| Q8 | multi-document comparison | partial | missed | ok | retrieval | The system correctly identifies the Q1 upgrade and HY reiteration but fails to include the starting FY2025 guidance of c.£14.9bn, claiming it lacks that information. |
+| Q9 | unanswerable (tests hallucination) | pass | n/a | ok | - | The system correctly states the documents do not contain Q3 2026 results and identifies what is available (H1 2026), matching the expected answer. |
+| Q10 | aggregation across periods | fail | missed | ok | retrieval | The system's answer does not identify Q1 2026 as the most profitable quarter and instead states it cannot determine which quarter was most profitable, while also citing an incorrect Q3 2025 underlying profit figure of £1,290m rather than providing the correct figures. |
 
-Tokens: 14451 in, 2087 out
+Tokens: 14741 in, 1925 out
 
 ## Answers
 
@@ -27,7 +27,7 @@ Tokens: 14451 in, 2087 out
 
 **Answer:**
 
-The CET1 ratio at 31 December 2025 was **14.0%** [2025-lbg-fy-results.pdf p5].
+The CET1 ratio at 31 December 2025 was **14.0%** (compared to 14.2% at 31 December 2024). [2025-lbg-fy-results.pdf p5]
 
 **Retrieved:**
 
@@ -45,13 +45,12 @@ The CET1 ratio at 31 December 2025 was **14.0%** [2025-lbg-fy-results.pdf p5].
 
 **Answer:**
 
-Based on the Group-level income statement, **underlying net interest income increased by 6% year-on-year**, rising from **£12,845 million in 2024 to £13,635 million in 2025** [2025-lbg-fy-results.pdf p13].
+Based on the excerpts, Group underlying net interest income increased by **6%** to **£13,635 million** in 2025, up from **£12,845 million** in 2024 [2025-lbg-fy-results.pdf p13].
 
-At the divisional level, the picture was mixed:
-
-- **Retail**: +8%, from £8,930m to £9,637m [2025-lbg-fy-results.pdf p22]
-- **Commercial Banking**: +7%, from £3,434m to £3,670m [2025-lbg-fy-results.pdf p24]
-- **Equity Investments & Central Items**: -22%, from £617m to £479m [2025-lbg-fy-results.pdf p30]
+At a divisional level:
+- **Retail**: increased 8% to £9,637m (2024: £8,930m) [2025-lbg-fy-results.pdf p22]
+- **Commercial Banking**: increased 7% to £3,670m (2024: £3,434m) [2025-lbg-fy-results.pdf p24]
+- **Equity Investments and Central Items**: decreased 22% to £479m (2024: £617m) [2025-lbg-fy-results.pdf p30]
 
 **Retrieved:**
 
@@ -73,9 +72,13 @@ At the divisional level, the picture was mixed:
 
 **Answer:**
 
-Based on the excerpts, the total motor finance provision is **£1,950 million**, which represents the Group's best estimate of the potential impact of the motor finance issue. This figure is confirmed across multiple documents [2025-lbg-fy-results.pdf p61], [2026-lbg-hy-results.pdf p90].
+Based on the excerpts, the total motor finance provision is **£1,950 million**, which represents the Group's best estimate of the potential impact of the motor finance issue. This figure is consistent across multiple documents:
 
-This provision was built up through charges including an **£800 million** charge taken in Q3 2025, bringing the cumulative total to £1,950 million [2025-lbg-q3-ims.pdf p8].
+- [2025-lbg-fy-results.pdf p14]
+- [2025-lbg-fy-results.pdf p61]
+- [2026-lbg-hy-results.pdf p90]
+
+The provision reached this level after an £800 million charge was taken in Q3 2025, bringing the cumulative total to £1,950 million [2025-lbg-q3-ims.pdf p8].
 
 **Retrieved:**
 
@@ -97,13 +100,13 @@ This provision was built up through charges including an **£800 million** charg
 
 **Answer:**
 
-Based on the excerpts, the increase in the underlying impairment charge to **£309 million** in Q1 2025 (up from £57 million in Q1 2024) was driven by two main factors:
+Based on the excerpts, the increase in the underlying impairment charge to **£309 million** in Q1 2025 (versus £57 million in Q1 2024) was driven by two main factors:
 
-1. **Underlying portfolio charges (excluding MES):** These rose to £274 million in Q1 2025 from £249 million in Q1 2024, reflecting deterioration across Retail and Commercial Banking segments [2025-lbg-q1-ims.pdf p10].
+1. **Higher underlying impairment** (excluding economic outlook updates): The charge ex-MES was £274 million in Q1 2025 versus £249 million in Q1 2024, reflecting increases across Retail and Commercial Banking. [2025-lbg-q1-ims.pdf p10]
 
-2. **Updated economic outlook (MES):** This resulted in a **£35 million net charge** in Q1 2025, compared to a **£192 million credit** in Q1 2024. The swing was largely due to a **£100 million central adjustment** added to address downside risks related to the potential impact of **US tariff policies announced at the start of April 2025**, which were becoming apparent around the balance sheet date [2025-lbg-q1-ims.pdf p8].
+2. **Updated multiple economic scenarios (MES)**: This resulted in a **£35 million net charge** in Q1 2025, compared to a **£192 million credit** in Q1 2024. Within this, a **£100 million central adjustment** was included to address downside risks related to the potential impact of **US tariff policies announced at the start of April 2025**, which were becoming apparent around the balance sheet date. [2025-lbg-q1-ims.pdf p8]
 
-In contrast, Q1 2024 had benefitted significantly from a large MES credit of £192 million, making the year-on-year comparison particularly stark [2025-lbg-q1-ims.pdf p10].
+The swing in the MES component — from a large credit of £192 million in Q1 2024 to a net charge of £35 million in Q1 2025 — was therefore a significant driver of the year-on-year increase.
 
 **Retrieved:**
 
@@ -123,7 +126,7 @@ In contrast, Q1 2024 had benefitted significantly from a large MES credit of £1
 
 Based on the excerpts, Lloyds Banking Group declared an **interim ordinary dividend of 1.58 pence per share** (equivalent to **£918 million**) for H1 2026, representing a **30% increase** year-on-year. [2026-lbg-hy-results.pdf p4]
 
-Alongside this dividend, the Board announced its intention to implement a **further ordinary share buyback programme of up to £1.0 billion**, in addition to the £1.75 billion programme already announced at the full year 2025 results. [2026-lbg-hy-results.pdf p4] This reflected the Group's steps to derisk the business, its strong capital position, and confidence in its future earnings trajectory. Notably, the Group also confirmed it is now reviewing excess capital distributions **every half-year**, rather than annually. [2026-lbg-hy-results.pdf p9]
+Alongside this dividend, the Board announced its intention to implement a **further ordinary share buyback programme of up to £1.0 billion**, in addition to the £1.75 billion buyback programme that had already been announced at the full year 2025 results. [2026-lbg-hy-results.pdf p4]
 
 **Retrieved:**
 
@@ -141,14 +144,14 @@ Alongside this dividend, the Board announced its intention to implement a **furt
 
 **Answer:**
 
-Based on the excerpts, the quarterly return on tangible equity (RoTE) figures for 2025 are:
+Based on the excerpts, the quarterly return on tangible equity figures for 2025 are:
 
 - **Q1 2025**: 12.6% [2025-lbg-q1-ims.pdf p8]
+- **Q3 2025 (nine months cumulative)**: 11.9%, or 14.6% excluding the motor finance charge [2025-lbg-q3-ims.pdf p9]
 - **Q4 2025**: 15.7% [2025-lbg-fy-results.pdf p16]
-- **Full year 2025**: 12.9% (or 14.8% excluding the motor finance charge) [2025-lbg-fy-results.pdf p16]
-- **Nine months to Q3 2025**: 11.9% (or 14.6% excluding the motor finance charge) [2025-lbg-q3-ims.pdf p9]
+- **Full year 2025**: 12.9%, or 14.8% excluding the motor finance charge [2025-lbg-fy-results.pdf p16]
 
-**Q3 2025 was the lowest-performing quarter**, as it dragged the nine-month RoTE down to 11.9% from 12.6% at Q1 — and the Group specifically cited a **one-off charge for motor finance commission arrangements** taken in Q3 as the reason. This is evidenced by the fact that excluding this charge, the nine-month RoTE was significantly higher at 14.6%, and the full-year RoTE similarly rises from 12.9% to 14.8% when the Q3 motor finance charge is stripped out [2025-lbg-q3-ims.pdf p9; 2025-lbg-fy-results.pdf p16].
+The excerpts do not provide standalone quarterly RoTE figures for Q2 and Q3 individually, only cumulative figures. However, the dragging down of the nine-month cumulative RoTE to 11.9% (versus 12.6% after Q1) points to **Q3 2025** as the weakest quarter, and the excerpts explicitly attribute this to the **third quarter charge for motor finance commission arrangements** [2025-lbg-q3-ims.pdf p9].
 
 **Retrieved:**
 
@@ -177,9 +180,9 @@ Based on the excerpts, the CET1 ratio moved as follows:
 - **31 December 2025 (pro forma):** 13.2% *(reflecting the full impact of the 2025 share buyback announced in January 2026)*
 - **31 March 2026:** 13.4%
 
-On a **reported basis**, the CET1 ratio fell by **0.6 percentage points** from 14.0% to 13.4% [2026-lbg-q1-ims.pdf p4].
+On a **pro forma basis**, the CET1 ratio **increased by 0.2 percentage points** (from 13.2% to 13.4%), driven by capital generation of 41 basis points — primarily from strong banking build — partially offset by risk-weighted asset increases of 31 basis points and an ordinary dividend accrual of 24 basis points. [2026-lbg-q1-ims.pdf p9, p10]
 
-On a **pro forma basis**, the CET1 ratio **increased by 0.2 percentage points** from 13.2% to 13.4% [2026-lbg-q1-ims.pdf p3]. This improvement of 41 basis points of capital generation during Q1 2026 was primarily driven by strong banking build, partially offset by risk-weighted asset increases of £5.3 billion (RWAs rising to £240.8 billion), with an ordinary dividend accrual of 24 basis points also partially offsetting the gain [2026-lbg-q1-ims.pdf p9].
+On a **reported basis**, the ratio **fell by 0.6 percentage points** (from 14.0% to 13.4%), as the December 2025 reported figure had not yet reflected the share buyback. [2026-lbg-q1-ims.pdf p4]
 
 **Retrieved:**
 
@@ -204,11 +207,11 @@ On a **pro forma basis**, the CET1 ratio **increased by 0.2 percentage points** 
 
 Based on the excerpts provided, here is how the 2026 net interest income guidance evolved:
 
-1. **Q1 2026 (IMS):** The Group **upgraded** its guidance, stating it "now expects underlying net interest income for 2026 to be greater than £14.9 billion," driven by strength in activity and changes in interest rates [2026-lbg-q1-ims.pdf p7].
+- **Q1 2026 (IMS):** The Group **upgraded** its guidance, stating it "now expects underlying net interest income for 2026 to be greater than £14.9 billion," driven by strength in activity and changes in interest rates [2026-lbg-q1-ims.pdf p7].
 
-2. **H1 2026 (Half-Year Results):** The Group **reiterated** the same guidance of "underlying net interest income of greater than £14.9 billion," with no further upgrade [2026-lbg-hy-results.pdf p4, p13, p16].
+- **H1 2026 (Half-Year Results):** The Group **reiterated** its guidance of underlying net interest income of greater than £14.9 billion, unchanged from the Q1 upgrade [2026-lbg-hy-results.pdf p4, p13, p16].
 
-In summary, the guidance was raised to **>£14.9 billion** at the Q1 stage and held at that level through the half-year results. The excerpts do not cover any later periods in 2026 (e.g., Q3 or full-year results), so it is not possible to say whether guidance changed further after H1.
+The excerpts do not contain the original guidance figure set at the start of 2026 (i.e., from the full-year 2025 results), so it is not possible to determine from these documents alone what the guidance was before the Q1 upgrade.
 
 **Retrieved:**
 
@@ -231,7 +234,7 @@ In summary, the guidance was raised to **>£14.9 billion** at the Q1 stage and h
 
 **Answer:**
 
-The documents provided do not contain this information. The excerpts cover Q1 2026 (interim management statement) and H1 2026 (half-year results) — there are no Q3 2026 results included in the provided materials.
+The documents provided do not contain this information. The excerpts cover Q1 2026 (ending 31 March 2026) and H1 2026 (ending 30 June 2026), but do not include any Q3 2026 results.
 
 **Retrieved:**
 
@@ -249,15 +252,13 @@ The documents provided do not contain this information. The excerpts cover Q1 20
 
 **Answer:**
 
-Based on the excerpts provided, I can identify the following profitability figures:
+Based on the excerpts provided, I can identify the following quarterly profit figures:
 
-**H1 2026 (six months ended):** Profit before tax of £4,293 million [2026-lbg-hy-results.pdf p54]
+- **Q1 2025**: Underlying profit implied from the Q1 IMS, with net income of £4,391 million for the quarter [2025-lbg-q1-ims.pdf p7]
+- **Q3 2025**: Underlying profit of £1,290 million [2025-lbg-q3-ims.pdf p7]
+- **H1 2026**: Profit before tax of £4,293 million for the half-year period [2026-lbg-hy-results.pdf p54]
 
-**Nine months to 30 September 2025:** Statutory profit before tax of £4,678 million, with underlying profit of £4,851 million [2025-lbg-q3-ims.pdf p7]
-
-However, the excerpts do **not provide a quarter-by-quarter breakdown** of profit before tax that would allow a direct comparison across individual quarters. The Q3 2025 IMS notes that underlying profit in Q3 2025 was £1,290 million, down 36% versus Q2 2025 (implying Q2 2025 underlying profit of approximately £2,015 million), but full statutory profit before tax figures for each individual quarter are not provided in the excerpts.
-
-**The documents provided do not contain sufficient quarter-by-quarter data to definitively identify which single quarter was the most profitable.**
+However, the excerpts do not provide a consistent, comparable quarterly statutory profit before tax figure across all quarters that would allow a definitive ranking of which single quarter was most profitable. The documents provided do not contain sufficient information to answer this question comprehensively.
 
 **Retrieved:**
 
