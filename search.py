@@ -2,11 +2,14 @@
 
 import json
 import os
+import time
+from functools import lru_cache
 from pathlib import Path
 
 import numpy as np
 import voyageai
 from dotenv import load_dotenv
+from voyageai.error import RateLimitError
 
 load_dotenv()
 
@@ -19,6 +22,10 @@ EXACT_BOOST = 0.10
 COVERS_BOOST = 0.05
 EXCLUDED = -1.0
 
+# Voyage's free tier allows 3 requests a minute. If we hit that, wait and retry.
+RATE_LIMIT_WAIT_SECONDS = 25
+RATE_LIMIT_ATTEMPTS = 4
+
 client = voyageai.Client(api_key=os.environ["VOYAGE_API_KEY"])
 
 chunks = json.loads(Path("data/chunks.json").read_text())
@@ -28,9 +35,22 @@ vectors = np.load("data/vectors.npy")
 vectors = vectors / np.linalg.norm(vectors, axis=1, keepdims=True)
 
 
+@lru_cache(maxsize=256)
 def embed_query(question: str) -> np.ndarray:
-    """Turn a question into a unit-length vector."""
-    response = client.embed([question], model=MODEL, input_type="query")
+    """Turn a question into a unit-length vector.
+
+    Remembers recent questions, so asking the same thing twice costs no
+    Voyage call. If Voyage's rate limit is hit, waits and tries again.
+    """
+    for attempt in range(1, RATE_LIMIT_ATTEMPTS + 1):
+        try:
+            response = client.embed([question], model=MODEL, input_type="query")
+            break
+        except RateLimitError:
+            if attempt == RATE_LIMIT_ATTEMPTS:
+                raise
+            time.sleep(RATE_LIMIT_WAIT_SECONDS)
+
     vector = np.array(response.embeddings[0], dtype=np.float32)
     return vector / np.linalg.norm(vector)
 
